@@ -2,8 +2,12 @@ import React, { useState, useRef } from 'react';
 import { Carousel, Button, message } from 'antd';
 import './index.scss';
 import bonusbase from './img/bonusbase.jpeg';
-import logo from '../../logo.svg';
-import { setUserBonus } from '../../api/bonus';
+// import logo from '../../logo.svg';
+import { setUserBonus, getBonusList } from '../../api/bonus';
+import { useRequest } from '@umijs/hooks';
+import { Typography } from 'antd';
+
+const { Title } = Typography;
 
 const contentStyle = {
   height: '180px',
@@ -11,6 +15,7 @@ const contentStyle = {
   lineHeight: '160px',
   textAlign: 'center',
   background: '#364d79',
+  borderRadius: '20%',
 };
 
 const centerStyle = {
@@ -22,15 +27,21 @@ const centerStyle = {
 const backgroundStyle = {
   backgroundImage: `url(${bonusbase})`,
   backgroundSize: '100% 100%',
-  width: '100%',
-  height: 667,
+  width: '100vw',
+  height: '100vh',
+  // position: 'fixed',
 };
 
 export default function Bonus() {
   const [loading, setLoading] = useState(false);
   const [gameState, setGameState] = useState(0);
-  const [bonus, setBonus] = useState(0);
   const [bonusNum, setBonusNum] = useState(4);
+
+  const { data: bonusList, run: updateBonusList } = useRequest(async () => {
+    const res = await getBonusList({});
+    setBonusNum(res.data?.length || 0);
+    return res.data;
+  });
 
   const carouselref = useRef();
 
@@ -71,10 +82,12 @@ export default function Bonus() {
     setLoading(false);
     setGameState(2);
     console.log(next8 % bonusNum);
-    setBonus(next8 % bonusNum);
+
+    const bonus = bonusList[(next8 % bonusNum) - 1];
 
     message.info(`获得${next8 % bonusNum}号奖品`);
-    setUserBonus({ bonus: next8 % bonusNum });
+    console.log(bonus);
+    setUserBonus(bonus);
   };
 
   const onClick = () => {
@@ -92,25 +105,36 @@ export default function Bonus() {
     <div className='base'>
       <div style={backgroundStyle}>
         <Carousel
-          style={{ paddingTop: 150 }}
+          style={{
+            paddingTop: 180,
+            width: '80%',
+            left: '50%',
+            marginLeft: '-40%',
+          }}
           ref={carouselref}
           afterChange={onAfterChange}
         >
-          <div>
-            <h3 style={contentStyle}>1</h3>
-          </div>
-          <div>
-            <h3 style={contentStyle}>2</h3>
-          </div>
-          <div>
-            <h3 style={contentStyle}>3</h3>
-          </div>
-          <div>
-            <h3 style={contentStyle}>4</h3>
-          </div>
+          {bonusList &&
+            bonusList.map((item) => {
+              return (
+                <div key={item.id}>
+                  <div style={contentStyle}>
+                    <Title level={3} style={{ paddingTop: 20 }}>
+                      {item.name}
+                    </Title>
+                    <Title level={5}>{item.description}</Title>
+                  </div>
+                </div>
+              );
+            })}
         </Carousel>
         <div style={centerStyle}>
-          <Button type='primary' loading={loading} onClick={onClick}>
+          <Button
+            type='primary'
+            loading={loading}
+            onClick={onClick}
+            style={{ marginTop: '15px' }}
+          >
             {gameState == 0
               ? '开始抽奖'
               : gameState == 1

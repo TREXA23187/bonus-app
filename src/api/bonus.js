@@ -1,23 +1,9 @@
-import axios from 'axios';
+import { get, post } from '../utils/request';
 
-export const getUserList = () => {
-  axios
-    .get('/user')
-    .then(function (response) {
-      console.log(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-};
+export function getBonusList() {
+  return get('/api/bonus');
+}
 
-export const setUserBonus = (data) => {
-  axios
-    .post('/bonus', data)
-    .then(function (response) {
-      console.log(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-};
+export function setUserBonus(data) {
+  return post('/api/bonus/map', data);
+}

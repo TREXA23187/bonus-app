@@ -1,12 +1,9 @@
-import axios from 'axios';
+import { get, post } from '../utils/request';
 
-export const login = (data) => {
-  axios
-    .post('/user/login', data)
-    .then(function (response) {
-      console.log(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-};
+export function getUserList() {
+  return get('/api/user');
+}
+
+export function login(data) {
+  return post('/api/user/login', data);
+}
