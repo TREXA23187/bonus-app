@@ -1,9 +1,14 @@
 import React, { useState, useRef } from 'react';
 import { Carousel, Button, message } from 'antd';
 import './index.scss';
-import bonusbase from './img/bonusbase.jpeg';
+import bonusbase from './img/spring.jpeg';
 // import logo from '../../logo.svg';
-import { setUserBonus, getBonusList } from '../../api/bonus';
+import {
+  setUserBonus,
+  getBonusList,
+  getUserBonusNum,
+  setUserBonusNum,
+} from '../../api/bonus';
 import { useRequest } from '@umijs/hooks';
 import { Typography } from 'antd';
 
@@ -14,7 +19,7 @@ const contentStyle = {
   color: '#fff',
   lineHeight: '160px',
   textAlign: 'center',
-  background: '#364d79',
+  // background: '#364d81',
   borderRadius: '20%',
 };
 
@@ -29,7 +34,6 @@ const backgroundStyle = {
   backgroundSize: '100% 100%',
   width: '100vw',
   height: '100vh',
-  // position: 'fixed',
 };
 
 export default function Bonus() {
@@ -42,6 +46,13 @@ export default function Bonus() {
     setBonusNum(res.data?.length || 0);
     return res.data;
   });
+
+  const { data: userBonusNum, run: updateUserBonusNum } = useRequest(
+    async () => {
+      const res = await getUserBonusNum();
+      return res.data?.bonusNum;
+    }
+  );
 
   const carouselref = useRef();
 
@@ -68,7 +79,6 @@ export default function Bonus() {
 
   const startBonus = async () => {
     let i = 0;
-    console.log('start');
 
     const next1 = await setBonusInterval(0, 10, 100);
     const next2 = await setBonusInterval(next1, 7, 120);
@@ -81,24 +91,21 @@ export default function Bonus() {
 
     setLoading(false);
     setGameState(2);
-    console.log(next8 % bonusNum);
 
     const bonus = bonusList[(next8 % bonusNum) - 1];
 
     message.info(`获得${next8 % bonusNum}号奖品`);
-    console.log(bonus);
     setUserBonus(bonus);
   };
 
-  const onClick = () => {
+  const onClick = async () => {
+    const newNum = userBonusNum - 1;
+    const updateRes = await setUserBonusNum({ bonusNum: newNum });
+    updateUserBonusNum();
     setLoading(true);
     setGameState(1);
 
     startBonus();
-  };
-
-  const onAfterChange = (current) => {
-    // console.log(current);
   };
 
   return (
@@ -112,7 +119,6 @@ export default function Bonus() {
             marginLeft: '-40%',
           }}
           ref={carouselref}
-          afterChange={onAfterChange}
         >
           {bonusList &&
             bonusList.map((item) => {
@@ -131,15 +137,18 @@ export default function Bonus() {
         <div style={centerStyle}>
           <Button
             type='primary'
+            disabled={!userBonusNum}
             loading={loading}
             onClick={onClick}
             style={{ marginTop: '15px' }}
           >
             {gameState == 0
-              ? '开始抽奖'
+              ? `开始抽奖(${userBonusNum ?? ''})`
               : gameState == 1
               ? '抽奖中'
-              : '抽奖结束'}
+              : !userBonusNum
+              ? '抽奖结束'
+              : `开始抽奖(${userBonusNum ?? ''})`}
           </Button>
         </div>
         {/* <img src={logo} className='App-logo' alt='logo' style={centerStyle} /> */}

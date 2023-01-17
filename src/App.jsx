@@ -10,24 +10,22 @@ import {
 import './App.scss';
 import { useState } from 'react';
 import { useRequest } from '@umijs/hooks';
-
 import Home from './page/home';
 import Bonus from './page/bonus';
 
-import { getBonusList } from './api/bonus';
-
 import LoginModal from './component/LoginModal';
+import { getUserInfo } from './api/user';
 
 const App = () => {
   const [visible, setVisible] = useState(false);
 
-  const { data: bonusList, run: updateBonusList } = useRequest(async () => {
-    const res = await getBonusList({});
-    if (res.code == 0) {
+  const { data: userInfo } = useRequest(async () => {
+    const res = await getUserInfo();
+    if (res.msg == 'NOTLOGIN') {
       setVisible(true);
     }
-    return res.data;
-  }, []);
+    return res.data?.bonusNum;
+  });
 
   return (
     <>

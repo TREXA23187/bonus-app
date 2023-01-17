@@ -7,3 +7,11 @@ export function getBonusList() {
 export function setUserBonus(data) {
   return post('/api/bonus/map', data);
 }
+
+export function getUserBonusNum() {
+  return get('/api/bonus/num');
+}
+
+export function setUserBonusNum(data) {
+  return post('/api/bonus/num', data);
+}

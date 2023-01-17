@@ -7,3 +7,7 @@ export function getUserList() {
 export function login(data) {
   return post('/api/user/login', data);
 }
+
+export function getUserInfo() {
+  return get('/api/user/info');
+}
