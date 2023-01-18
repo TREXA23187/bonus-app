@@ -6,6 +6,7 @@ import bonusbase from './img/spring.jpeg';
 import fuGif from './img/fu.gif';
 
 import { Button, Form, Badge, Typography } from 'antd';
+import fireworks from 'react-fireworks';
 
 const backgroundStyle = {
   backgroundImage: `url(${bonusbase})`,
@@ -25,12 +26,25 @@ export default function Home(props) {
   const [dayDiff, setDayDiff] = useState(new_days);
   const { Text } = Typography;
 
-  const onImageClick = () => {
-    console.log('image click');
+  const onFireWork = () => {
+    fireworks.init('base_div', {});
+    fireworks.start();
+
+    const timer = setTimeout(() => {
+      console.log(12312);
+      fireworks.stop();
+      clearTimeout(timer);
+    }, 5000);
   };
 
   return (
-    <div style={{ visibility: visible ? 'visible' : 'hidden' }}>
+    <div
+      style={{
+        visibility: visible ? 'visible' : 'hidden',
+        // height: '80vh',
+      }}
+      id='base_div'
+    >
       <div style={backgroundStyle}>
         {/* <div>2022.10.13 16:46</div> */}
         <div
@@ -89,7 +103,7 @@ export default function Home(props) {
               right: '5px',
               bottom: '10px',
             }}
-            onClick={onImageClick}
+            onClick={onFireWork}
           ></img>
         </div>
       </div>

@@ -12,6 +12,7 @@
     "node-sass": "^8.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-fireworks": "^1.0.4",
     "react-router-dom": "^5.1.1",
     "react-scripts": "5.0.1",
     "sass-loader": "^13.2.0",
