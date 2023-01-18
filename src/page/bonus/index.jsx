@@ -36,7 +36,8 @@ const backgroundStyle = {
   height: '100vh',
 };
 
-export default function Bonus() {
+export default function Bonus(props) {
+  const { visible } = props;
   const [loading, setLoading] = useState(false);
   const [gameState, setGameState] = useState(0);
   const [bonusNum, setBonusNum] = useState(4);
@@ -78,9 +79,10 @@ export default function Bonus() {
   };
 
   const startBonus = async () => {
-    let i = 0;
+    const startNum = Math.floor(Math.random() * 3);
+    // console.log((10 + 7 + 6 + 5 + 3 + 3 + 2 + 1 + startNum) % bonusNum);
 
-    const next1 = await setBonusInterval(0, 10, 100);
+    const next1 = await setBonusInterval(0, 10 + startNum, 100);
     const next2 = await setBonusInterval(next1, 7, 120);
     const next3 = await setBonusInterval(next2, 6, 150);
     const next4 = await setBonusInterval(next3, 5, 170);
@@ -109,7 +111,7 @@ export default function Bonus() {
   };
 
   return (
-    <div className='base'>
+    <div style={{ visibility: visible ? 'visible' : 'hidden' }}>
       <div style={backgroundStyle}>
         <Carousel
           style={{
@@ -125,10 +127,15 @@ export default function Bonus() {
               return (
                 <div key={item.id}>
                   <div style={contentStyle}>
-                    <Title level={3} style={{ paddingTop: 20 }}>
+                    <Title
+                      level={3}
+                      style={{ paddingTop: 20, color: '#FFD700' }}
+                    >
                       {item.name}
                     </Title>
-                    <Title level={5}>{item.description}</Title>
+                    <Title level={5} style={{ color: '#FFFACD' }}>
+                      {item.description}
+                    </Title>
                   </div>
                 </div>
               );
@@ -137,18 +144,24 @@ export default function Bonus() {
         <div style={centerStyle}>
           <Button
             type='primary'
-            disabled={!userBonusNum}
+            // disabled={!userBonusNum}
             loading={loading}
             onClick={onClick}
-            style={{ marginTop: '15px' }}
+            style={{
+              marginTop: '15px',
+              backgroundColor: 'red',
+              width: '100px',
+            }}
           >
-            {gameState == 0
-              ? `开始抽奖(${userBonusNum ?? ''})`
-              : gameState == 1
-              ? '抽奖中'
-              : !userBonusNum
-              ? '抽奖结束'
-              : `开始抽奖(${userBonusNum ?? ''})`}
+            <span style={{ color: '#FFFACD' }}>
+              {gameState == 0
+                ? `开始抽奖(${userBonusNum ?? ''})`
+                : gameState == 1
+                ? '抽奖中'
+                : !userBonusNum
+                ? '抽奖结束'
+                : `开始抽奖(${userBonusNum ?? ''})`}
+            </span>
           </Button>
         </div>
         {/* <img src={logo} className='App-logo' alt='logo' style={centerStyle} /> */}

@@ -39,10 +39,20 @@ class FlipClock extends Component {
 
   // 初始化数字
   init() {
-    let now = new Date();
-    let nowTimeStr = this.formatDate(new Date(now.getTime()), 'hhiiss');
+    const beginDateStr = '2022-10-13 16:46:00';
+
+    const beginDate = new Date(beginDateStr);
+    const endDate = Date.now();
+
+    const seconds = (endDate - beginDate) / 1000;
+
+    const new_seconds = this.add_zero(parseInt(seconds) % 60);
+    const new_minutes = this.add_zero(parseInt(seconds / 60) % 60);
+    const new_hours = this.add_zero(parseInt(seconds / (60 * 60)) % 24);
+    const newTimeStr = `${new_hours}${new_minutes}${new_seconds}`;
+
     for (let i = 0; i < this.flipObjs.length; i++) {
-      this.flipObjs[i].setFront(nowTimeStr[i]);
+      this.flipObjs[i].setFront(newTimeStr[i]);
     }
   }
   // 开始计时
@@ -91,7 +101,9 @@ class FlipClock extends Component {
       const oldTimeStr = `${old_hours}${old_minutes}${old_seconds}`;
       const newTimeStr = `${new_hours}${new_minutes}${new_seconds}`;
 
-      this.props.onDayChange(parseInt(new_days));
+      if (new_days != old_days) {
+        this.props.onDayChange(parseInt(new_days));
+      }
 
       for (let i = 0; i < this.flipObjs.length; i++) {
         if (oldTimeStr[i] === newTimeStr[i]) {

@@ -21,7 +21,8 @@
   position: absolute;
   left: 0;
   right: 0;
-  background: #ff4500;
+  /* background: #ff4500; */
+  background: #eead0e;
   overflow: hidden;
   box-sizing: border-box;
 }

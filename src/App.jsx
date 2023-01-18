@@ -18,11 +18,14 @@ import { getUserInfo } from './api/user';
 
 const App = () => {
   const [visible, setVisible] = useState(false);
+  const [showContent, setShowContent] = useState(false);
 
   const { data: userInfo } = useRequest(async () => {
     const res = await getUserInfo();
     if (res.msg == 'NOTLOGIN') {
       setVisible(true);
+    } else {
+      setShowContent(true);
     }
     return res.data?.bonusNum;
   });
@@ -31,14 +34,22 @@ const App = () => {
     <>
       <LoginModal
         visible={visible}
-        onClose={() => setVisible(false)}
+        onClose={() => {
+          setVisible(false);
+          setShowContent(true);
+        }}
       ></LoginModal>
       <Router>
         <Switch>
           <Route path='/' exact render={() => <Redirect to='/home' />} />
-          <Route path='/home' component={Home} />
-          <Route path='/bonus' component={Bonus} />
-          {/* <Route component={DefaultLayout} /> */}
+          <Route
+            path='/home'
+            render={() => <Home visible={showContent}></Home>}
+          />
+          <Route
+            path='/bonus'
+            render={() => <Bonus visible={showContent}></Bonus>}
+          />
         </Switch>
       </Router>
     </>
