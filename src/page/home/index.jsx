@@ -2,21 +2,21 @@ import React, { useEffect, useState } from 'react';
 import './index.scss';
 import FlipClock from '../../component/flipClock';
 
-import bonusbase from './img/spring.jpeg';
+import backgroundImage from '../../image/background/spring.jpeg';
 import fuGif from './img/fu.gif';
 
 import { Button, Form, Badge, Typography } from 'antd';
 import fireworks from 'react-fireworks';
 
 const backgroundStyle = {
-  backgroundImage: `url(${bonusbase})`,
+  backgroundImage: `url(${backgroundImage})`,
   backgroundSize: '100% 100%',
   width: '100vw',
   height: '100vh',
   position: 'relative',
 };
 
-const beginDateStr = '2022-10-13 16:46:00';
+const beginDateStr = '2022-10-13 17:46:00';
 const beginDate = new Date(beginDateStr);
 const endDate = Date.now();
 const new_days = parseInt((endDate - beginDate) / 1000 / (60 * 60 * 24));
@@ -27,14 +27,17 @@ export default function Home(props) {
   const { Text } = Typography;
 
   const onFireWork = () => {
-    fireworks.init('base_div', {});
+    fireworks.init('base_div', {
+      frequency: 300,
+      launch_speed: 5,
+    });
     fireworks.start();
 
     const timer = setTimeout(() => {
       console.log(12312);
       fireworks.stop();
       clearTimeout(timer);
-    }, 5000);
+    }, 3000);
   };
 
   return (
@@ -57,13 +60,13 @@ export default function Home(props) {
             lineHeight: '5',
           }}
         >
-          <Text className='home_text' style={{ fontSize: '22px' }}>
+          <Text className='home_text' style={{ fontSize: '26px' }}>
             新年新气象
           </Text>
-          <Text className='home_text' style={{ fontSize: '22px' }}>
+          <Text className='home_text' style={{ fontSize: '26px' }}>
             恭祝
           </Text>
-          <Text className='home_text' style={{ fontSize: '20px' }}>
+          <Text className='home_text' style={{ fontSize: '24px' }}>
             邵珊公主
           </Text>
           <Text className='home_text'>所期皆所念</Text>
@@ -85,6 +88,7 @@ export default function Home(props) {
               fontFamily: 'Microsoft yahei',
               color: '#FFD39B',
               fontWeight: 'normal',
+              fontFamily: 'xingkai',
             }}
           >
             第 {dayDiff} 天
@@ -94,7 +98,6 @@ export default function Home(props) {
           <FlipClock onDayChange={setDayDiff} />
         </div>
         <div>
-          {/* <Badge count={25} /> */}
           <img
             src={fuGif}
             style={{

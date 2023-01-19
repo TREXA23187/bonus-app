@@ -5,8 +5,7 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom';
-// import logo from './logo.svg';
-// <img src={logo} className="App-logo" alt="logo" />
+import logoImage from './image/logo/logo512.png';
 import './App.scss';
 import { useState } from 'react';
 import { useRequest } from '@umijs/hooks';
@@ -52,6 +51,15 @@ const App = () => {
           />
         </Switch>
       </Router>
+      <img
+        src={logoImage}
+        style={{
+          width: '110px',
+          position: 'absolute',
+          left: '-5%',
+          bottom: '0',
+        }}
+      ></img>
     </>
   );
 };

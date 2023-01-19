@@ -1,7 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { Carousel, Button, message } from 'antd';
 import './index.scss';
-import bonusbase from './img/spring.jpeg';
+import backgroundImage from '../../image/background/spring.jpeg';
+
 // import logo from '../../logo.svg';
 import {
   setUserBonus,
@@ -30,7 +31,7 @@ const centerStyle = {
 };
 
 const backgroundStyle = {
-  backgroundImage: `url(${bonusbase})`,
+  backgroundImage: `url(${backgroundImage})`,
   backgroundSize: '100% 100%',
   width: '100vw',
   height: '100vh',

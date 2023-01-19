@@ -5,6 +5,7 @@ import './flipClock.css';
 class FlipClock extends Component {
   constructor(props) {
     super(props);
+    this.startDate = '2022-10-13 17:46:00';
     this.timer = null;
     this.flipObjs = [];
   }
@@ -39,7 +40,7 @@ class FlipClock extends Component {
 
   // 初始化数字
   init() {
-    const beginDateStr = '2022-10-13 16:46:00';
+    const beginDateStr = this.startDate;
 
     const beginDate = new Date(beginDateStr);
     const endDate = Date.now();
@@ -80,7 +81,7 @@ class FlipClock extends Component {
   run() {
     this.timer = setInterval(() => {
       // 获取当前时间
-      const beginDateStr = '2022-10-13 16:46:00';
+      const beginDateStr = this.startDate;
 
       const beginDate = new Date(beginDateStr);
       const endDate = Date.now();
