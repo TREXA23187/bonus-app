@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 // const BASE_URL = '47.243.60.114';
-// const BASE_URL = 'localhost';
-const BASE_URL = 'shaoshanbonus.trexchen.com';
+const BASE_URL = 'localhost';
+// const BASE_URL = 'shaoshanbonus.trexchen.com';
 
 const instance = axios.create({
   baseURL: `http://${BASE_URL}:3000`,

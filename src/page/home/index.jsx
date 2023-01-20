@@ -34,9 +34,14 @@ export default function Home(props) {
     fireworks.start();
 
     const timer = setTimeout(() => {
-      console.log(12312);
       fireworks.stop();
       clearTimeout(timer);
+
+      const remove_timer = setTimeout(() => {
+        const fireworks_canvas = document.getElementById('fireworksField');
+        fireworks_canvas.parentNode.removeChild(fireworks_canvas);
+        clearTimeout(remove_timer);
+      }, 15500);
     }, 3000);
   };
 

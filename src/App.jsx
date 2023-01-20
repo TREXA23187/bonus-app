@@ -9,8 +9,10 @@ import logoImage from './image/logo/logo512.png';
 import './App.scss';
 import { useState } from 'react';
 import { useRequest } from '@umijs/hooks';
+
 import Home from './page/home';
 import Bonus from './page/bonus';
+import Test from './page/test';
 
 import LoginModal from './component/LoginModal';
 import { getUserInfo } from './api/user';
@@ -49,6 +51,7 @@ const App = () => {
             path='/bonus'
             render={() => <Bonus visible={showContent}></Bonus>}
           />
+          <Route component={Test}></Route>
         </Switch>
       </Router>
       <img
