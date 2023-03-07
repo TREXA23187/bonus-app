@@ -43,7 +43,7 @@ const App = () => {
       ></LoginModal>
       <Router>
         <Switch>
-          <Route path='/' exact render={() => <Redirect to='/home' />} />
+          <Route path='/' exact render={() => <Redirect to='/chat' />} />
           <Route
             path='/home'
             render={() => <Home visible={showContent}></Home>}
@@ -56,7 +56,7 @@ const App = () => {
             path='/chat'
             render={() => <Chat visible={showContent}></Chat>}
           />
-          <Route component={Test}></Route>
+          {/* <Route component={Test}></Route> */}
         </Switch>
       </Router>
       <img
