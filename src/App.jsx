@@ -43,18 +43,18 @@ const App = () => {
       ></LoginModal>
       <Router>
         <Switch>
-          <Route path='/' exact render={() => <Redirect to='/chat' />} />
+          <Route path='/' exact render={() => <Redirect to='/home' />} />
           <Route
             path='/home'
+            render={() => <Chat visible={showContent}></Chat>}
+          />
+          <Route
+            path='/index'
             render={() => <Home visible={showContent}></Home>}
           />
           <Route
             path='/bonus'
             render={() => <Bonus visible={showContent}></Bonus>}
-          />
-          <Route
-            path='/chat'
-            render={() => <Chat visible={showContent}></Chat>}
           />
           {/* <Route component={Test}></Route> */}
         </Switch>
