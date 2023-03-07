@@ -16,7 +16,7 @@ export default function Chat(props) {
         <div className='typora-export-content' style={{ marginBottom: '20px' }}>
           <Button type='link' onClick={goHistoryPage}>
             <span style={{ color: '#1677ff' }}>
-              查看聊天记录
+              查看聊天记录(截止至2023.3.5)
               <ArrowRightOutlined />
             </span>
           </Button>
