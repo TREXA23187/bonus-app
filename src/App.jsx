@@ -66,6 +66,7 @@ const App = () => {
           position: 'absolute',
           left: '-5%',
           bottom: '0',
+          opacity: '50%',
         }}
       ></img>
     </>
