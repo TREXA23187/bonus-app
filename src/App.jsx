@@ -13,6 +13,7 @@ import { useRequest } from '@umijs/hooks';
 import Home from './page/home';
 import Bonus from './page/bonus';
 import Test from './page/test';
+import Chat from './page/chat';
 
 import LoginModal from './component/LoginModal';
 import { getUserInfo } from './api/user';
@@ -50,6 +51,10 @@ const App = () => {
           <Route
             path='/bonus'
             render={() => <Bonus visible={showContent}></Bonus>}
+          />
+          <Route
+            path='/chat'
+            render={() => <Chat visible={showContent}></Chat>}
           />
           <Route component={Test}></Route>
         </Switch>
