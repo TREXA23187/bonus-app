@@ -33,7 +33,7 @@ export default function Chat(props) {
             </div>
             <div>
               <span>
-                下图为一天24时中，发生过聊天的时间段占比分布图，可以看出主要集中在下午和晚上，尤其是晚上，而在早晨十点钟前则基本为0。
+                下图为一天24时中，发生过聊天的时间段占比分布图，可以看出主要集中在下午和晚上，而在早晨十点钟前则基本为0。
               </span>
             </div>
             <div>
@@ -43,6 +43,9 @@ export default function Chat(props) {
               <span>
                 下图中可以明显的看出聊天的数据量随时间的变化而变化，消息数量呈波动的趋势。
               </span>
+              <span>
+                由于时间序列仅为两个月，数据量较少，整体的分析结果也受限于数据量。
+              </span>
             </div>
             <div>
               <Image src={timeLine} style={{ margin: 'auto' }} />
@@ -51,15 +54,22 @@ export default function Chat(props) {
               <span>下图为较粗略的统计了在聊天中出现的词语的词语的频率。</span>
             </div>
             <div>
+              <span>
+                本图的问题在于没有将一些没有意义的语气词连词等进行删除后再生成词云。
+              </span>
+            </div>
+            <div>
               <Image src={wordCloud} style={{ margin: 'auto' }} />
             </div>
             <div>
               <span>
-                下图为对所涉及到的语句分词后进行情感分析，大于0为积极，小于0为消极。
+                下图为对所涉及到的语句分词后进行情感分析，大于0为很积极，0到-0.2为积极，小于-0.2则为消极。
               </span>
             </div>
             <div>
-              <span>其中25401条消息中，有21777条消息为积极，3624条为消极</span>
+              <span>
+                其中25401条消息中，有21777条消息为积极，3624条为消极。
+              </span>
             </div>
             <div>
               <Image src={snowGraph} style={{ margin: 'auto' }} />
