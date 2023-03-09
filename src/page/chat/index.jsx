@@ -3,6 +3,7 @@ import { Image, Button } from 'antd';
 import { timeDist, timeLine, wordCloud, snowGraph } from './img/img_path';
 import './index.css';
 import { ArrowRightOutlined } from '@ant-design/icons';
+import gifRank from './img/gif_rank.png';
 
 export default function Chat(props) {
   const { visible } = props;
@@ -73,6 +74,12 @@ export default function Chat(props) {
             </div>
             <div>
               <Image src={snowGraph} style={{ margin: 'auto' }} />
+            </div>
+            <div>
+              <span>下图为各个表情出现的次数rank10。</span>
+            </div>
+            <div>
+              <Image src={gifRank} style={{ margin: 'auto' }} />
             </div>
           </div>
         </div>
